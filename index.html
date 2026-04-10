@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAFT Network Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>🌐 Resilient Edge-to-Cloud Network (OSI 7 Layers + DAFT)</h1>
+
+    <main class="container">
+        <section class="panel" id="edge-panel">
+            <h2>🏭 Edge Node (Smart Warehouse)</h2>
+            <div class="status-board">
+                <div class="status-box">
+                    🌡️ อุณหภูมิหน้างาน
+                    <span id="edge-temp" style="color: var(--orange);">-- °C</span>
+                </div>
+                <div class="status-box">
+                    🧠 DAFT State
+                    <span id="edge-state">--</span>
+                </div>
+                <div class="status-box">
+                    📡 Network Link (L1/L2)
+                    <span id="edge-network" class="badge up">UP</span>
+                </div>
+                <div class="status-box">
+                    📦 DTN Buffer (L4)
+                    <span id="edge-buffer" style="color: var(--blue);">0 Packets</span>
+                </div>
+            </div>
+            <div class="log-window" id="edge-log"></div>
+        </section>
+
+        <section class="panel" id="cloud-panel">
+            <h2>☁️ Cloud Server Dashboard</h2>
+            <div class="status-board">
+                <div class="status-box" style="grid-column: span 2;">
+                    📊 ข้อมูลล่าสุดที่ได้รับ (Decoded Payload)
+                    <span id="cloud-latest-data" style="font-size: 1rem; color: #fff; font-weight: normal;">รอรับข้อมูล...</span>
+                </div>
+            </div>
+            <div class="log-window" id="cloud-log" style="color: #fff;"></div>
+        </section>
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
