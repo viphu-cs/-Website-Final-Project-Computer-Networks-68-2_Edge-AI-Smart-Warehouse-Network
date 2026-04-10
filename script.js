@@ -63,7 +63,8 @@ function cloudReceivePacket(packet) {
 
     // ถอดรหัส Base64 (L6 Presentation)
     try {
-        let decodedStr = atob(packet.data);
+        // ถอดรหัส Base64 และแปลงกลับเป็นภาษาไทย/Emoji
+        let decodedStr = decodeURIComponent(escape(atob(packet.data)));
         let payload = JSON.parse(decodedStr);
 
         logCloud(`[L3 Network] 📥 ได้รับ UDP Datagram จาก 192.168.1.50`, 'info');
@@ -101,9 +102,10 @@ function simulateEdgeTick() {
     };
     logEdge(`<span class="layer-tag">[L7 App]</span> DAFT State: ${daft.state} (O4=${daft.o4.toFixed(2)})`);
 
-    // 3. Layer 6: Presentation (แปลง JSON + เข้ารหัส Base64)
+// 3. Layer 6: Presentation (แปลง JSON + เข้ารหัส Base64)
     let jsonStr = JSON.stringify(payload);
-    let encodedData = btoa(jsonStr); // Base64 Encode
+    // แปลงข้อความภาษาไทย/Emoji ให้ปลอดภัยก่อนเข้า btoa
+    let encodedData = btoa(unescape(encodeURIComponent(jsonStr)));
     logEdge(`<span class="layer-tag">[L6 Pres]</span> เข้ารหัส Base64: ${encodedData.substring(0, 20)}...`);
 
     // 4. Layer 1/2: จำลองสถานะเครือข่าย (โอกาสหลุด 30%)
